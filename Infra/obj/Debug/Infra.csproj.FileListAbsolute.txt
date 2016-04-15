@@ -1,0 +1,14 @@
+C:\Projects\Desafio\Infra\bin\Debug\Infra.dll
+C:\Projects\Desafio\Infra\bin\Debug\Infra.pdb
+C:\Projects\Desafio\Infra\bin\Debug\Domain.dll
+C:\Projects\Desafio\Infra\bin\Debug\Domain.pdb
+C:\Projects\Desafio\Infra\obj\Debug\Infra.csprojResolveAssemblyReference.cache
+C:\Projects\Desafio\Infra\obj\Debug\Infra.dll
+C:\Projects\Desafio\Infra\obj\Debug\Infra.pdb
+C:\Projects\DesafioConcrete\Infra\bin\Debug\Infra.dll
+C:\Projects\DesafioConcrete\Infra\bin\Debug\Infra.pdb
+C:\Projects\DesafioConcrete\Infra\bin\Debug\Domain.dll
+C:\Projects\DesafioConcrete\Infra\bin\Debug\Domain.pdb
+C:\Projects\DesafioConcrete\Infra\obj\Debug\Infra.csprojResolveAssemblyReference.cache
+C:\Projects\DesafioConcrete\Infra\obj\Debug\Infra.dll
+C:\Projects\DesafioConcrete\Infra\obj\Debug\Infra.pdb
