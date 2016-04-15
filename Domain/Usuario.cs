@@ -23,7 +23,7 @@ namespace Domain
         public string Senha { get; set; }
         public string Token { get; set; }
 
-        public DateTime DataCriacao { get; }
+        public DateTime DataCriacao { get; set; }
         public DateTime DataAtualizacao { get; set; }
         public DateTime UltimoLogin { get; set; }
 
