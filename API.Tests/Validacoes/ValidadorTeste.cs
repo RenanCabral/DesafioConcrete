@@ -66,6 +66,29 @@ namespace API.Tests.Validacoes
         #endregion
 
         #region Validação Login 
+
+        [TestMethod]
+        public void Validar_Email_Login_Esperando_Email_Invalido()
+        {
+            //arrange
+            Usuario usuario = null;
+            usuarioRepositorioMock.Setup(x => x.RetornarUsuarioPorEmail("renan@mail.com")).Returns(usuario);
+
+            var validacoes = new List<IValidacao>();
+            validacoes.Add(new ValidacaoEmailLogin());
+
+            var validador = new Validador(usuarioRepositorioMock.Object);
+            var usuarioModel = new API.Models.Usuario("Renan", "renan@mail.com");
+
+            //act
+            var mensagemErro = validador.Validar(usuarioModel, validacoes);
+
+            //assert
+            Assert.IsNotNull(mensagemErro);
+            Assert.AreEqual("Email e/ou senha inválidos.", mensagemErro.Mensagem);
+            Assert.AreEqual(HttpStatusCode.Unauthorized, mensagemErro.CodigoErro); 
+        }
+
         #endregion
 
         #region Validação Profile 

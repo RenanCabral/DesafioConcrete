@@ -14,7 +14,7 @@ namespace API.Validacoes
         {
             MensagemErro mensagemErro = null;
 
-            var usuarioDomain = usuarioRepositorio.RetornarUsuario(u => u.Email == usuario.Email);
+            var usuarioDomain = usuarioRepositorio.RetornarUsuarioPorEmail(usuario.Email);
 
             if (usuarioDomain == null)
             {
