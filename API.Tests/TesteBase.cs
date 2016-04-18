@@ -7,7 +7,7 @@ namespace API.Tests
     {
         public Domain.Usuario CriarUsuario(string email, string senha)
         {
-            return new Domain.Usuario(0, "Test", email, senha);
+            return new Domain.Usuario("Test", email, senha,Guid.NewGuid().ToString());
         }
     }
 }

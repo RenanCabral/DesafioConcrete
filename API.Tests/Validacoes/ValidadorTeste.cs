@@ -32,7 +32,7 @@ namespace API.Tests.Validacoes
             validacoes.Add(new ValidacaoEmailSignup());
 
             var validador = new Validador(usuarioRepositorioMock.Object);
-            var usuarioModel = new API.Models.Usuario("Renan", "renan@mail.com");
+            var usuarioModel = new API.Models.Usuario("Renan", "renan@mail.com", Guid.NewGuid().ToString());
 
             //act
             var mensagemErro = validador.Validar(usuarioModel, validacoes);
@@ -54,7 +54,7 @@ namespace API.Tests.Validacoes
             validacoes.Add(new ValidacaoEmailSignup());
 
             var validador = new Validador(usuarioRepositorioMock.Object);
-            var usuarioModel = new API.Models.Usuario("Renan", "renan@mail.com");
+            var usuarioModel = new API.Models.Usuario("Renan", "renan@mail.com", Guid.NewGuid().ToString());
 
             //act
             var mensagemErro = validador.Validar(usuarioModel, validacoes);
@@ -78,7 +78,7 @@ namespace API.Tests.Validacoes
             validacoes.Add(new ValidacaoEmailLogin());
 
             var validador = new Validador(usuarioRepositorioMock.Object);
-            var usuarioModel = new API.Models.Usuario("Renan", "renan@mail.com");
+            var usuarioModel = new API.Models.Usuario("Renan", "renan@mail.com", Guid.NewGuid().ToString());
 
             //act
             var mensagemErro = validador.Validar(usuarioModel, validacoes);
@@ -86,7 +86,7 @@ namespace API.Tests.Validacoes
             //assert
             Assert.IsNotNull(mensagemErro);
             Assert.AreEqual("Email e/ou senha inválidos.", mensagemErro.Mensagem);
-            Assert.AreEqual(HttpStatusCode.Unauthorized, mensagemErro.CodigoErro); 
+            Assert.AreEqual(HttpStatusCode.Unauthorized, mensagemErro.CodigoErro);
         }
 
         #endregion

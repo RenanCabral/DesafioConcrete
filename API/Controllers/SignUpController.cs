@@ -7,6 +7,7 @@ using System.Web.Http;
 using API.Models;
 using Infra.Interfaces;
 using API.Validacoes;
+using API.Filtros;
 
 namespace API.Controllers
 {
@@ -20,9 +21,12 @@ namespace API.Controllers
         }
 
         [HttpPost]
+        [ModelValidateFilter]
         public HttpResponseMessage Post(Usuario usuario)
         {
             var validacoes = new List<IValidacao>();
+
+            validacoes.Add(new ValidacaoDadosObrigatoriosSignup());
             validacoes.Add(new ValidacaoEmailSignup());
 
             var validador = new Validador(_usuarioRepositorio);
@@ -31,7 +35,15 @@ namespace API.Controllers
             if (mensagemErro != null)
                 return Request.CreateResponse(mensagemErro.CodigoErro, mensagemErro);
 
-            return Request.CreateResponse(HttpStatusCode.OK, Usuario.CriarUsuario(_usuarioRepositorio.RetornarUsuarioPorEmail(usuario.Email)));
+            _usuarioRepositorio.Adicionar(Usuario.CriarUsuarioDomain(usuario));
+
+            var usuarioCadastrado = _usuarioRepositorio.RetornarUsuarioPorEmail(usuario.Email);
+
+            var response = Request.CreateResponse(HttpStatusCode.OK, Usuario.CriarUsuarioModel(usuarioCadastrado));
+            
+            response.Headers.Add("Token", usuarioCadastrado.Token);
+
+            return response;
         }
     }
 }

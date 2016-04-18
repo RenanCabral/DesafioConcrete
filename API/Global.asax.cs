@@ -12,6 +12,7 @@ namespace API
         protected void Application_Start()
         {
             GlobalConfiguration.Configure(WebApiConfig.Register);
+            GlobalConfiguration.Configuration.Filters.Add(new Filtros.ModelValidateFilterAttribute());
         }
     }
 }

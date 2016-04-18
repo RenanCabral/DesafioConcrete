@@ -1,6 +1,7 @@
-﻿using System;
+﻿using API.Models;
+using API.Validacoes;
+using Infra.Interfaces;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -9,31 +10,37 @@ namespace API.Controllers
 {
     public class ProfileController : ApiController
     {
-        // GET: api/Profile
-        public IEnumerable<string> Get()
+        private IUsuarioRepositorio _usuarioRepositorio;
+
+        public ProfileController(IUsuarioRepositorio usuarioRepositorio)
         {
-            return new string[] { "value1", "value2" };
+            this._usuarioRepositorio = usuarioRepositorio;
         }
 
-        // GET: api/Profile/5
-        public string Get(int id)
+        [HttpGet]
+        public HttpResponseMessage Get(int id)
         {
-            return "value";
+            if (Request.Headers.Authorization == null)
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+
+            var token = Request.Headers.Authorization.Parameter;
+
+            if (string.IsNullOrEmpty(token))
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+
+            var validacoes = new List<IValidacao>();
+            validacoes.Add(new ValidacaoToken());
+
+            var usuario = new Usuario(null, null, token);
+            usuario.Id = id;
+
+            var mensagemErro = new Validador(_usuarioRepositorio).Validar(usuario, validacoes);
+
+            if (mensagemErro != null)
+                return Request.CreateResponse(mensagemErro.CodigoErro, mensagemErro);
+
+            return Request.CreateResponse(HttpStatusCode.OK, Usuario.CriarUsuarioModel(_usuarioRepositorio.RetornarUsuario(id)));
         }
 
-        // POST: api/Profile
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT: api/Profile/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE: api/Profile/5
-        public void Delete(int id)
-        {
-        }
     }
 }

@@ -11,6 +11,8 @@ namespace Infra.Interfaces
     {
         List<Usuario> RetornarUsuarios();
         void Adicionar(Usuario usuario);
+        void AtualizarRegistroAcessoLogin(int id);
+        Usuario RetornarUsuario(int id);
         Usuario RetornarUsuario(Func<Usuario, bool> where);
         Usuario RetornarUsuarioPorEmail(string email);
     }

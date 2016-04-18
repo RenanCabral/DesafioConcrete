@@ -144,7 +144,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnityResolver.cs" />
     <Compile Include="Util\MensagemErro.cs" />
+    <Compile Include="Filtros\ModelValidateFilterAttribute.cs" />
+    <Compile Include="Validacoes\ValidacaoDadosObrigatoriosLogin.cs" />
+    <Compile Include="Validacoes\ValidacaoDadosObrigatoriosSignup.cs" />
     <Compile Include="Validacoes\ValidacaoEmailSignup.cs" />
+    <Compile Include="Validacoes\ValidacaoToken.cs" />
     <Compile Include="Validacoes\Validador.cs" />
     <Compile Include="Validacoes\IValidacao.cs" />
     <Compile Include="Validacoes\ValidacaoEmailLogin.cs" />
@@ -207,7 +211,7 @@
     <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
   </Target>
- <PropertyGroup>
+  <PropertyGroup>
     <PostBuildEvent>
       if not exist "$(WebProjectOutputDir)\bin\Roslyn" md "$(WebProjectOutputDir)\bin\Roslyn"
       start /MIN xcopy /s /y /R "$(OutDir)roslyn\*.*" "$(WebProjectOutputDir)\bin\Roslyn"

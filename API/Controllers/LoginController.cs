@@ -6,7 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using API.Models;
 using Infra.Interfaces;
-using API.Util;
+using API.Filtros;
 using API.Validacoes; 
 
 namespace API.Controllers
@@ -21,10 +21,13 @@ namespace API.Controllers
         }
 
         [HttpPost]
+        [ModelValidateFilter]
         public HttpResponseMessage Post(Usuario usuario)
         {
             //TODO: Factory
             var validacoes = new List<IValidacao>();
+
+            validacoes.Add(new ValidacaoDadosObrigatoriosLogin());
             validacoes.Add(new ValidacaoEmailLogin());
             validacoes.Add(new ValidacaoSenhaLogin());
 
@@ -33,17 +36,14 @@ namespace API.Controllers
             if (mensagemErro != null)
                 return Request.CreateResponse(mensagemErro.CodigoErro, mensagemErro);
 
-            return Request.CreateResponse(HttpStatusCode.OK, Usuario.CriarUsuario(_usuarioRepositorio.RetornarUsuarioPorEmail(usuario.Email)));
-        }
+            var usuarioAutenticado =_usuarioRepositorio.RetornarUsuarioPorEmail(usuario.Email);
+            _usuarioRepositorio.AtualizarRegistroAcessoLogin(usuarioAutenticado.Id);
 
-        // PUT: api/Login/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
+            var response = Request.CreateResponse(HttpStatusCode.OK, Usuario.CriarUsuarioModel(usuarioAutenticado));
 
-        // DELETE: api/Login/5
-        public void Delete(int id)
-        {
+            response.Headers.Add("Token", usuarioAutenticado.Token);
+
+            return response;
         }
     }
 }

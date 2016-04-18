@@ -9,12 +9,12 @@ namespace Domain
     public class Usuario
     {
 
-        public Usuario(int id, string nome, string email, string senha)
-        {
-            this.Id = id;
+        public Usuario(string nome, string email, string senha, string token)
+        {   
             this.Nome = nome;
             this.Email = email;
             this.Senha = senha;
+            this.Token = token;
         }
 
         public int Id { get; set; }
